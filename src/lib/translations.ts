@@ -191,7 +191,7 @@ export const translations: Record<Language, Translations> = {
     // Footer
     footerText: 'Built with Portuguese Labor Law Compliance',
     methodologyLink: '📘 View Methodology',
-    exportPdf: 'Export PDF (coming soon)',
+    exportPdf: 'Export PDF',
     footerCopyright: '© 2025 Employment Exit Calculator | 🇵🇹 Portuguese Labor Law Educational Tool',
     
     // Validation Errors
@@ -292,7 +292,7 @@ export const translations: Record<Language, Translations> = {
     // Footer
     footerText: 'Construído com Conformidade à Lei Laboral Portuguesa',
     methodologyLink: '📘 Ver Metodologia',
-    exportPdf: 'Exportar PDF (em breve)',
+    exportPdf: 'Exportar PDF',
     footerCopyright: '© 2025 Calculadora de Rescisão de Contrato | 🇵🇹 Ferramenta Educacional de Direito Laboral Português',
     
     // Validation Errors

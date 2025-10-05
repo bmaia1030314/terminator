@@ -54,9 +54,9 @@ export function Footer({ language, result, inputData }: FooterProps) {
               width: '100%',
               maxWidth: '300px'
             }}
-            title={canExport ? t('exportPdf', language).replace(' (coming soon)', '') : t('exportPdf', language)}
+            title={t('exportPdf', language)}
           >
-            📄 {canExport ? (language === 'en' ? 'Export PDF' : 'Exportar PDF') : t('exportPdf', language)}
+            📄 {t('exportPdf', language)}
           </button>
         </div>
 
