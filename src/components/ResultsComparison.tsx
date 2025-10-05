@@ -225,46 +225,46 @@ export function ResultsComparison({ result, inputData, troubleshootMode = false,
             {t('mutualAgreementCard', language)}
           </h3>
           
-          <div style={{
-            fontSize: '2.5rem',
-            fontWeight: 'bold',
-            color: isMutualBetter ? '#16a34a' : '#374151',
-            textAlign: 'center',
-            marginBottom: '0.5rem'
-          }}>
-            {formatCurrency(result.mutualGross)}
-          </div>
-          
-          <p style={{
-            fontSize: '0.875rem',
-            color: '#6b7280',
-            textAlign: 'center',
-            marginBottom: '0.75rem'
-          }}>
-            {t('grossCompensation', language)}
-          </p>
-
           {result.mutualNet && (
             <>
               <div style={{
-                fontSize: '1.75rem',
+                fontSize: '2.5rem',
                 fontWeight: 'bold',
-                color: isMutualBetter ? '#059669' : '#6b7280',
+                color: isMutualBetter ? '#16a34a' : '#374151',
                 textAlign: 'center',
-                marginBottom: '0.25rem'
+                marginBottom: '0.5rem'
               }}>
                 {formatCurrency(result.mutualNet)}
               </div>
               
               <p style={{
-                fontSize: '0.75rem',
-                color: '#9ca3af',
-                textAlign: 'center'
+                fontSize: '0.875rem',
+                color: '#6b7280',
+                textAlign: 'center',
+                marginBottom: '0.75rem'
               }}>
                 {t('netAfterTax', language)}
               </p>
             </>
           )}
+
+          <div style={{
+            fontSize: '1.75rem',
+            fontWeight: 'bold',
+            color: isMutualBetter ? '#059669' : '#6b7280',
+            textAlign: 'center',
+            marginBottom: '0.25rem'
+          }}>
+            {formatCurrency(result.mutualGross)}
+          </div>
+          
+          <p style={{
+            fontSize: '0.75rem',
+            color: '#9ca3af',
+            textAlign: 'center'
+          }}>
+            {t('grossCompensation', language)}
+          </p>
         </div>
 
         {/* Contract Termination Result */}
@@ -324,28 +324,29 @@ export function ResultsComparison({ result, inputData, troubleshootMode = false,
             {t('contractTerminationCard', language)}
           </h3>
           
-          <div style={{
-            fontSize: '2.5rem',
-            fontWeight: 'bold',
-            color: !isMutualBetter ? '#1d4ed8' : '#374151',
-            textAlign: 'center',
-            marginBottom: '0.5rem'
-          }}>
-            {formatCurrency(result.terminationGross)}
-          </div>
-          
-          <p style={{
-            fontSize: '0.875rem',
-            color: '#6b7280',
-            textAlign: 'center',
-            marginBottom: '0.75rem'
-          }}>
-            {t('grossCompensation', language)}
-          </p>
-
           {result.terminationNet && (
             <>
-              {/* Show breakdown first */}
+              {/* Total Net Value with Benefit - TOP */}
+              <div style={{
+                fontSize: '2.5rem',
+                fontWeight: 'bold',
+                color: !isMutualBetter ? '#1d4ed8' : '#374151',
+                textAlign: 'center',
+                marginBottom: '0.5rem'
+              }}>
+                {formatCurrency(result.terminationNet + (result.unemploymentBenefitTotal || 0))}
+              </div>
+              
+              <p style={{
+                fontSize: '0.875rem',
+                color: '#6b7280',
+                textAlign: 'center',
+                marginBottom: '0.75rem'
+              }}>
+                Total Net (with benefit)
+              </p>
+
+              {/* Show breakdown */}
               <div style={{
                 marginBottom: '1rem',
                 padding: '0.75rem',
@@ -401,28 +402,27 @@ export function ResultsComparison({ result, inputData, troubleshootMode = false,
                   </div>
                 )}
               </div>
-
-              {/* Total Net Value with Benefit */}
-              <div style={{
-                fontSize: '1.75rem',
-                fontWeight: 'bold',
-                color: !isMutualBetter ? '#1e40af' : '#6b7280',
-                textAlign: 'center',
-                marginBottom: '0.25rem'
-              }}>
-                {formatCurrency(result.terminationNet + (result.unemploymentBenefitTotal || 0))}
-              </div>
-              
-              <p style={{
-                fontSize: '0.75rem',
-                color: !isMutualBetter ? '#1e40af' : '#9ca3af',
-                textAlign: 'center',
-                fontWeight: '600'
-              }}>
-                Total Net (with benefit)
-              </p>
             </>
           )}
+
+          {/* Gross Value - BOTTOM */}
+          <div style={{
+            fontSize: '1.75rem',
+            fontWeight: 'bold',
+            color: !isMutualBetter ? '#1e40af' : '#6b7280',
+            textAlign: 'center',
+            marginBottom: '0.25rem'
+          }}>
+            {formatCurrency(result.terminationGross)}
+          </div>
+          
+          <p style={{
+            fontSize: '0.75rem',
+            color: '#9ca3af',
+            textAlign: 'center'
+          }}>
+            {t('grossCompensation', language)}
+          </p>
         </div>
       </div>
 
