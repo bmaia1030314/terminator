@@ -39,10 +39,11 @@ export function SupportModal({ language: initialLanguage, onClose, onLanguageCha
         style={{
           backgroundColor: 'white',
           borderRadius: '16px',
+          width: '100%',
           maxWidth: '700px',
           maxHeight: '90vh',
           overflow: 'auto',
-          padding: '2rem',
+          padding: '1.5rem',
           boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
           position: 'relative'
         }}

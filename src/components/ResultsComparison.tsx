@@ -34,8 +34,8 @@ export function ResultsComparison({ result, inputData, troubleshootMode = false,
         
         <div style={{ 
           display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
-          gap: '1.5rem' 
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))', 
+          gap: '1rem' 
         }}>
           {/* Mutual Agreement Placeholder */}
           <div className="card" style={{

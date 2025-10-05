@@ -24,15 +24,16 @@ export function Footer({ language, result, inputData }: FooterProps) {
     <footer style={{
       background: 'linear-gradient(to right, #f9fafb, #f1f5f9)',
       borderTop: '2px solid #e5e7eb',
-      padding: '2.5rem 1.5rem',
-      marginTop: '4rem'
+      padding: '1.5rem 1rem',
+      marginTop: '2rem'
     }}>
       <div className="container">
         <div style={{
           display: 'flex',
           flexDirection: 'column',
           gap: '1rem',
-          marginBottom: '2rem'
+          marginBottom: '1.5rem',
+          alignItems: 'center'
         }}>
           {/* Export PDF button */}
           <button
@@ -42,13 +43,16 @@ export function Footer({ language, result, inputData }: FooterProps) {
             style={{
               display: 'inline-flex',
               alignItems: 'center',
+              justifyContent: 'center',
               padding: '0.75rem 1.25rem',
               border: canExport ? 'none' : '2px solid #d1d5db',
               color: canExport ? 'white' : '#9ca3af',
               borderRadius: '12px',
               cursor: canExport ? 'pointer' : 'not-allowed',
               background: canExport ? undefined : '#f3f4f6',
-              fontSize: '0.875rem'
+              fontSize: '0.875rem',
+              width: '100%',
+              maxWidth: '300px'
             }}
             title={canExport ? t('exportPdf', language).replace(' (coming soon)', '') : t('exportPdf', language)}
           >
@@ -58,12 +62,12 @@ export function Footer({ language, result, inputData }: FooterProps) {
 
         {/* Copyright */}
         <div style={{
-          paddingTop: '1.5rem',
+          paddingTop: '1rem',
           borderTop: '2px solid #e5e7eb'
         }}>
           <p style={{
             textAlign: 'center',
-            fontSize: '0.875rem',
+            fontSize: '0.75rem',
             color: '#6b7280',
             fontWeight: '500'
           }}>
