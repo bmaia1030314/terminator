@@ -465,7 +465,7 @@ export function ResultsComparison({ result, inputData, troubleshootMode = false,
           paddingLeft: '1.5rem',
           marginBottom: '0.75rem'
         }}>
-          <li><strong>Mutual Agreement:</strong> Subject to IRS taxation (up to 53%) and 11% Social Security contributions</li>
+          <li><strong>Mutual Agreement:</strong> 12 days per year are IRS tax-free. Remaining amount subject to IRS taxation (up to 53%). NO Social Security (11%) applied!</li>
           <li><strong>Contract Termination:</strong> Tax-exempt compensation PLUS unemployment benefit eligibility ({result.unemploymentBenefitMonths} months at ~60% salary = {result.unemploymentBenefitTotal ? formatCurrency(result.unemploymentBenefitTotal) : '€0'})</li>
         </ul>
         <p style={{
@@ -533,14 +533,27 @@ export function ResultsComparison({ result, inputData, troubleshootMode = false,
               </p>
 
               <p style={{ marginBottom: '0.75rem' }}>
-                <strong>Step 2: Calculate Monthly Equivalent (for IRS table)</strong>
+                <strong>Step 2: Calculate Tax-Exempt Amount (IRS Free)</strong>
               </p>
-              <p style={{ marginLeft: '1rem', marginBottom: '1rem', fontFamily: 'monospace', backgroundColor: '#f1f5f9', padding: '0.5rem', borderRadius: '0.25rem' }}>
-                Monthly Equivalent = €{result.mutualGross.toFixed(2)} ÷ {(inputData.mutualMonths * inputData.yearsOfService).toFixed(1)} months = €{(result.mutualGross / (inputData.mutualMonths * inputData.yearsOfService)).toFixed(2)}
+              <p style={{ marginLeft: '1rem', marginBottom: '0.5rem', fontFamily: 'monospace', backgroundColor: '#dcfce7', padding: '0.5rem', borderRadius: '0.25rem' }}>
+                Daily Salary = €{inputData.annualSalary.toFixed(2)} ÷ 365 days = €{(inputData.annualSalary / 365).toFixed(2)}
+              </p>
+              <p style={{ marginLeft: '1rem', marginBottom: '0.5rem', fontFamily: 'monospace', backgroundColor: '#dcfce7', padding: '0.5rem', borderRadius: '0.25rem' }}>
+                Tax-Exempt Days = 12 days/year × {Math.floor(inputData.yearsOfService)} years = {12 * Math.floor(inputData.yearsOfService)} days
+              </p>
+              <p style={{ marginLeft: '1rem', marginBottom: '1rem', fontFamily: 'monospace', backgroundColor: '#dcfce7', padding: '0.5rem', borderRadius: '0.25rem' }}>
+                <strong>✅ Tax-Exempt Amount = €{(inputData.annualSalary / 365).toFixed(2)} × {12 * Math.floor(inputData.yearsOfService)} = €{((inputData.annualSalary / 365) * 12 * Math.floor(inputData.yearsOfService)).toFixed(2)}</strong>
               </p>
 
               <p style={{ marginBottom: '0.75rem' }}>
-                <strong>Step 3: Apply IRS Tax (Portuguese Tables - Maximum Bracket)</strong>
+                <strong>Step 3: Calculate Taxable Portion</strong>
+              </p>
+              <p style={{ marginLeft: '1rem', marginBottom: '1rem', fontFamily: 'monospace', backgroundColor: '#fef3c7', padding: '0.5rem', borderRadius: '0.25rem' }}>
+                Taxable Amount = €{result.mutualGross.toFixed(2)} - €{((inputData.annualSalary / 365) * 12 * Math.floor(inputData.yearsOfService)).toFixed(2)} = €{Math.max(0, result.mutualGross - ((inputData.annualSalary / 365) * 12 * Math.floor(inputData.yearsOfService))).toFixed(2)}
+              </p>
+
+              <p style={{ marginBottom: '0.75rem' }}>
+                <strong>Step 4: Apply IRS Tax on Taxable Portion Only</strong>
               </p>
               <p style={{ marginLeft: '1rem', marginBottom: '0.5rem' }}>
                 Tax Category: {inputData.maritalStatus === 'Single' ? (inputData.dependents > 0 ? 'Single with Dependents (Table II)' : 'Single (Table I)') : 'Married (Table III)'}
@@ -548,28 +561,25 @@ export function ResultsComparison({ result, inputData, troubleshootMode = false,
               <p style={{ marginLeft: '1rem', marginBottom: '0.5rem' }}>
                 Dependents: {inputData.dependents}
               </p>
-              <p style={{ marginLeft: '1rem', marginBottom: '0.5rem', fontFamily: 'monospace', backgroundColor: '#f1f5f9', padding: '0.5rem', borderRadius: '0.25rem' }}>
-                IRS Tax Base = €{result.mutualGross.toFixed(2)} (total gross amount)
+              <p style={{ marginLeft: '1rem', marginBottom: '0.5rem', fontFamily: 'monospace', backgroundColor: '#fef3c7', padding: '0.5rem', borderRadius: '0.25rem' }}>
+                IRS Tax Base = €{Math.max(0, result.mutualGross - ((inputData.annualSalary / 365) * 12 * Math.floor(inputData.yearsOfService))).toFixed(2)} (only taxable portion)
               </p>
               <p style={{ marginLeft: '1rem', marginBottom: '0.5rem', fontFamily: 'monospace', backgroundColor: '#fef3c7', padding: '0.5rem', borderRadius: '0.25rem' }}>
                 Maximum Bracket Rate = 53.00% (highest IRS tax bracket)
               </p>
               <p style={{ marginLeft: '1rem', marginBottom: '1rem', fontFamily: 'monospace', backgroundColor: '#fef3c7', padding: '0.5rem', borderRadius: '0.25rem' }}>
-                IRS Tax = (€{result.mutualGross.toFixed(2)} × 53%) - Parcel = €{result.mutualNet ? (result.mutualGross - result.mutualNet - result.mutualGross * 0.11).toFixed(2) : '0.00'}
+                IRS Tax = (€{Math.max(0, result.mutualGross - ((inputData.annualSalary / 365) * 12 * Math.floor(inputData.yearsOfService))).toFixed(2)} × 53%) - Parcel ≈ €{result.mutualNet ? (result.mutualGross - result.mutualNet).toFixed(2) : '0.00'}
               </p>
 
-              <p style={{ marginBottom: '0.75rem' }}>
-                <strong>Step 4: Deduct Social Security (11%)</strong>
-              </p>
-              <p style={{ marginLeft: '1rem', marginBottom: '1rem', fontFamily: 'monospace', backgroundColor: '#f1f5f9', padding: '0.5rem', borderRadius: '0.25rem' }}>
-                Social Security = €{result.mutualGross.toFixed(2)} × 11% = €{(result.mutualGross * 0.11).toFixed(2)}
+              <p style={{ marginBottom: '0.75rem', backgroundColor: '#dcfce7', padding: '0.5rem', borderRadius: '0.25rem' }}>
+                <strong>⚠️ No Social Security (11%) - Does NOT apply to mutual agreements!</strong>
               </p>
 
               <p style={{ marginBottom: '0.75rem' }}>
                 <strong>Final Net Amount</strong>
               </p>
               <p style={{ marginLeft: '1rem', fontFamily: 'monospace', backgroundColor: '#dcfce7', padding: '0.75rem', borderRadius: '0.25rem', fontSize: '1rem' }}>
-                <strong>Net = €{result.mutualNet ? result.mutualNet.toFixed(2) : '0.00'}</strong>
+                <strong>Net = Gross - IRS Tax = €{result.mutualNet ? result.mutualNet.toFixed(2) : '0.00'}</strong>
               </p>
             </div>
           </div>

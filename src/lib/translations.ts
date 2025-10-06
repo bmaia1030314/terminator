@@ -157,7 +157,7 @@ export const translations: Record<Language, Translations> = {
     summaryMoreCompensation: 'option provides',
     summaryIncludingBenefit: '(including unemployment benefit)',
     keyDifference: '📊 Key Difference:',
-    mutualAgreementNote: 'Subject to IRS taxation (up to 53%) and 11% Social Security contributions',
+    mutualAgreementNote: '12 days per year are IRS tax-free. Remaining amount subject to IRS taxation (up to 53%). NO Social Security (11%) applied!',
     contractTerminationNote: 'Tax-exempt compensation PLUS unemployment benefit eligibility ({months} months at ~60% salary = {total})',
     considerDiscussing: 'Consider discussing both options with HR and seeking professional advice to understand the full implications including timing and legal rights.',
     
@@ -259,7 +259,7 @@ export const translations: Record<Language, Translations> = {
     summaryMoreCompensation: 'proporciona',
     summaryIncludingBenefit: '(incluindo subsídio de desemprego)',
     keyDifference: '📊 Diferença Principal:',
-    mutualAgreementNote: 'Sujeito a tributação IRS (até 53%) e 11% de contribuições para Segurança Social',
+    mutualAgreementNote: '12 dias por ano são isentos de IRS. O valor restante está sujeito a tributação IRS (até 53%). SEM Segurança Social (11%)!',
     contractTerminationNote: 'Compensação isenta de impostos MAIS elegibilidade para subsídio de desemprego ({months} meses a ~60% do salário = {total})',
     considerDiscussing: 'Considere discutir ambas as opções com RH e procurar aconselhamento profissional para entender as implicações completas, incluindo prazos e direitos legais.',
     
