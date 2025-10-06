@@ -243,7 +243,7 @@ export function ResultsComparison({ result, inputData, troubleshootMode = false,
                 textAlign: 'center',
                 marginBottom: '0.75rem'
               }}>
-                {t('netAfterTax', language)}
+                {t('netAfterTaxMutual', language)}
               </p>
             </>
           )}

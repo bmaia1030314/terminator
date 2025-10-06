@@ -42,6 +42,7 @@ export interface Translations {
   contractTerminationCard: string;
   grossCompensation: string;
   netAfterTax: string;
+  netAfterTaxMutual: string;
   severanceTaxExempt: string;
   unemployment: string;
   unemploymentMonths: string;
@@ -144,6 +145,7 @@ export const translations: Record<Language, Translations> = {
     contractTerminationCard: 'Contract Termination',
     grossCompensation: 'Gross compensation',
     netAfterTax: 'Net (after IRS + 11% SS)',
+    netAfterTaxMutual: 'Net (after IRS, 12 days/year exempt)',
     severanceTaxExempt: 'Severance (Tax-exempt)',
     unemployment: 'Unemployment',
     unemploymentMonths: '{months} months',
@@ -245,6 +247,7 @@ export const translations: Record<Language, Translations> = {
     contractTerminationCard: 'Despedimento por Contrato',
     grossCompensation: 'Compensação bruta',
     netAfterTax: 'Líquido (após IRS + 11% SS)',
+    netAfterTaxMutual: 'Líquido (após IRS, 12 dias/ano isentos)',
     severanceTaxExempt: 'Indemnização (Isenta de impostos)',
     unemployment: 'Desemprego',
     unemploymentMonths: '{months} meses',

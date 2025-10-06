@@ -150,8 +150,53 @@ const TABLE_III = [
 ];
 
 /**
+ * Calculate net payout for mutual agreement
+ * In mutual agreement:
+ * - 12 days per year of service are tax-exempt
+ * - NO social security (11%) is applied
+ * - IRS only applied on taxable portion (amount above tax-exempt threshold)
+ */
+export function calcMutualNet(
+  grossAmount: number,
+  yearsOfService: number,
+  annualSalary: number,
+  maritalStatus: 'Single' | 'Married',
+  dependents: number
+): number {
+  const dailyRate = annualSalary / 365;
+  const fullYears = Math.floor(yearsOfService);
+  
+  // Tax-exempt portion: 12 days per year of service
+  const taxExemptDays = 12 * fullYears;
+  const taxExemptAmount = dailyRate * taxExemptDays;
+  
+  // Taxable portion: everything above the tax-exempt amount
+  const taxableAmount = Math.max(0, grossAmount - taxExemptAmount);
+  
+  // NO Social Security contribution for mutual agreement
+  
+  // Select appropriate tax table
+  let table;
+  if (maritalStatus === 'Single') {
+    table = dependents > 0 ? TABLE_II : TABLE_I;
+  } else {
+    table = TABLE_III; // Married, two wage earners
+  }
+  
+  // Calculate IRS only on taxable portion
+  // Use the highest tax bracket (maximum tax rate)
+  const highestBracket = table[table.length - 1];
+  const totalIRS = taxableAmount * (highestBracket.rate / 100) - highestBracket.parcel;
+  
+  // Net amount: Gross - IRS on taxable portion
+  const netAmount = grossAmount - Math.max(0, totalIRS);
+  
+  return Math.round(Math.max(0, netAmount)); // Ensure non-negative
+}
+
+/**
  * Calculate net payout after IRS and Social Security deductions
- * For mutual agreement compensation
+ * For general compensation (legacy function, kept for compatibility)
  */
 export function estimateNet(
   grossAmount: number,
@@ -272,8 +317,8 @@ export function calculateComparison(data: InputData): ComparisonResult {
   );
   
   // Calculate net values
-  // Mutual agreement: subject to IRS and Social Security taxation
-  const mutualNet = estimateNet(mutualGross, data.maritalStatus, data.dependents);
+  // Mutual agreement: 12 days per year tax-exempt, NO social security, IRS only on taxable portion
+  const mutualNet = calcMutualNet(mutualGross, data.yearsOfService, data.annualSalary, data.maritalStatus, data.dependents);
   // Contract termination: exempt from taxation (gross = net)
   const terminationNet = terminationGross;
   
